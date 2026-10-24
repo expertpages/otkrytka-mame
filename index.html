@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f2ea">
+<title>Для мамы 🤍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f2ea;
+    --card:#fffdf9;
+    --text:#3d332b;
+    --muted:#8a7c6e;
+    --accent:#c4714b;
+    --accent-soft:#e8d9cb;
+    --line:#e7ded1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Manrope',sans-serif;
+    background:
+      radial-gradient(120% 60% at 50% 0%, #fdf8f1 0%, var(--bg) 60%),
+      var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    line-height:1.6;
+  }
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    padding:48px 20px 64px;
+  }
+  @media (min-width:520px){ .wrap{padding-top:72px} }
+
+  header{text-align:center;margin-bottom:28px}
+  .eyebrow{
+    font-size:11px;letter-spacing:.35em;text-transform:uppercase;
+    color:var(--accent);font-weight:500;margin-bottom:14px;
+  }
+  h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;font-size:44px;line-height:1.15;letter-spacing:.01em;
+  }
+  .subtitle{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:19px;color:var(--muted);margin-top:10px;
+  }
+
+  .photo{
+    display:block;width:100%;border-radius:20px;
+    box-shadow:0 18px 45px -18px rgba(70,50,30,.35), 0 2px 8px rgba(70,50,30,.08);
+    margin-bottom:28px;
+  }
+  .photo-cap{
+    text-align:center;font-size:12.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);margin:-16px 0 28px;
+  }
+
+  .divider{color:var(--accent-soft);text-align:center;font-size:16px;margin-bottom:28px;letter-spacing:.6em}
+
+  /* ---------- player ---------- */
+  .player{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:20px 18px;
+    box-shadow:0 10px 30px -18px rgba(70,50,30,.25);
+    margin-bottom:18px;
+  }
+  .player-top{display:flex;align-items:center;gap:16px}
+  .playbtn{
+    flex:0 0 58px;width:58px;height:58px;border-radius:50%;
+    background:var(--accent);border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .playbtn:active{transform:scale(.94)}
+  .playbtn svg{width:22px;height:22px;fill:#fff}
+  .meta{flex:1;min-width:0}
+  .track-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:20px;line-height:1.25;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;
+  }
+  .time{font-size:12px;color:var(--muted);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+  .progress{
+    margin-top:16px;height:26px;display:flex;align-items:center;cursor:pointer;
+  }
+  .bar{
+    position:relative;width:100%;height:4px;border-radius:4px;background:var(--accent-soft);
+  }
+  .bar-fill{
+    position:absolute;left:0;top:0;height:100%;width:0%;
+    border-radius:4px;background:var(--accent);transition:width .15s linear;
+  }
+  .bar-fill::after{
+    content:"";position:absolute;right:-6px;top:50%;transform:translateY(-50%);
+    width:12px;height:12px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 4px rgba(196,113,75,.18);
+  }
+
+  /* ---------- lyrics toggle ---------- */
+  .textbtn{
+    width:100%;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    background:transparent;border:1px solid var(--line);border-radius:16px;
+    padding:14px 18px;cursor:pointer;
+    font-family:'Manrope',sans-serif;font-size:14px;font-weight:500;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--text);
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .textbtn:active{background:#f2ebdf}
+  .chev{width:14px;height:14px;stroke:var(--accent);stroke-width:2.2;fill:none;
+    transition:transform .35s ease}
+  .textbtn.open .chev{transform:rotate(180deg)}
+
+  .lyrics{
+    display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows .5s ease;
+  }
+  .lyrics.open{grid-template-rows:1fr}
+  .lyrics-inner{overflow:hidden}
+  .lyrics-box{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    margin-top:14px;padding:30px 22px 34px;
+    animation:fade .6s ease;
+  }
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .sec{
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--accent);margin:26px 0 8px;font-weight:500;
+  }
+  .lyrics-box p{font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.55}
+  .lyrics-box .sec + p, .lyrics-box > p:first-child{margin-top:0}
+
+  footer{
+    text-align:center;margin-top:44px;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    color:var(--muted);font-size:16px;
+  }
+  footer .heart{color:var(--accent);font-style:normal}
+
+  /* gentle entrance */
+  header,.photo,.photo-cap,.divider,.player,.textbtn,footer{
+    animation:rise .8s ease both;
+  }
+  .photo{animation-delay:.15s}.photo-cap{animation-delay:.2s}
+  .divider{animation-delay:.25s}.player{animation-delay:.3s}.textbtn{animation-delay:.4s}
+  footer{animation-delay:.5s}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">музыкальная открытка</div>
+    <h1>Для мамы</h1>
+    <div class="subtitle">Кате — с любовью, от дочки Даши</div>
+  </header>
+
+  <img class="photo" src="photo.jpg" alt="Катя и Даша на пляже">
+  <div class="photo-cap">мы 💛</div>
+
+  <div class="divider">❖ ❖ ❖</div>
+
+  <div class="player">
+    <div class="player-top">
+      <button class="playbtn" id="play" aria-label="Слушать песню">
+        <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.54.84l10-6.5a1 1 0 0 0 0-1.69l-10-6.5A1 1 0 0 0 8 5.5z"/></svg>
+        <svg id="icon-pause" viewBox="0 0 24 24" style="display:none"><path d="M7 5h3.2v14H7zM13.8 5H17v14h-3.2z"/></svg>
+      </button>
+      <div class="meta">
+        <div class="track-name">Песня для самой любимой</div>
+        <div class="time"><span id="cur">0:00</span> · <span id="dur">--:--</span></div>
+      </div>
+    </div>
+    <div class="progress" id="progress" aria-label="Позиция в песне">
+      <div class="bar"><div class="bar-fill" id="fill"></div></div>
+    </div>
+  </div>
+
+  <button class="textbtn" id="textbtn" aria-expanded="false" aria-controls="lyrics">
+    Текст
+    <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <section class="lyrics" id="lyrics">
+    <div class="lyrics-inner">
+      <div class="lyrics-box">
+        <p class="sec">Куплет 1</p>
+        <p>Тебя зовут Катя, но для меня<br>Ты мамик, масюньчик, масюнь моя.<br>Сильная, гордая, словно огонь,<br>Настоящая львица — характер и бронь.</p>
+        <p>Ты шла напролом, не боясь ничего,<br>И жизнь не сломала в тебе никого.<br>Одна поднимала, одна берегла,<br>И всё, что могла, ты мне отдала.</p>
+
+        <p class="sec">Пред-припев</p>
+        <p>Я помню Жукова, утро, рассвет,<br>Как в школу вела меня за руку вслед.<br>Твоя тёплая ладонь и тревога в глазах,<br>И целая жизнь помещалась в мечтах.</p>
+
+        <p class="sec">Припев</p>
+        <p>Мама, ты рядом — и мне не страшно,<br>Сколько бы вьюга ни била однажды.<br>Ты мне собою дала понять,<br>Как можно падать — и снова вставать.</p>
+        <p>Мама, спасибо за каждую боль,<br>Что ты закрыла своею рукой.<br>Мы были вместе сквозь темень и дым,<br>И потому этот свет сохранил нас двоих.</p>
+
+        <p class="sec">Куплет 2</p>
+        <p>Ты мне говорила: бывало порой<br>Один окорочок был на месяц с тобой.<br>И денег так мало, и сердце в тени,<br>Но ты всё равно зажигала огни.</p>
+        <p>Я в магазине тянулась рукой<br>К конфетке, к шоколадке, к одной дорогой.<br>А ты улыбалась, скрывая печаль,<br>Хотя разрывалась внутри, как хрусталь.</p>
+
+        <p class="sec">Пред-припев</p>
+        <p>И как тебе было — я только теперь<br>Могу хоть немного измерить потерь.<br>Сколько бессонных, беззвучных ночей<br>Ты прятала боль от меня поскорей.</p>
+
+        <p class="sec">Припев</p>
+        <p>Мама, ты рядом — и мне не страшно,<br>Сколько бы вьюга ни била однажды.<br>Ты мне собою дала понять,<br>Как можно падать — и снова вставать.</p>
+        <p>Мама, спасибо за каждую боль,<br>Что ты закрыла своею рукой.<br>Мы были вместе сквозь темень и дым,<br>И потому этот свет сохранил нас двоих.</p>
+
+        <p class="sec">Куплет 3</p>
+        <p>А годы прошли, и сменился наш свет,<br>И в доме твоём теперь счастья рассвет.<br>Ты всё же добилась, ты всё же смогла,<br>Сквозь голод и слёзы себя пронесла.</p>
+        <p>Теперь ты умеешь пространство любить,<br>Уютом, ремонтом его оживить.<br>Где были когда-то тревога и страх —<br>Теперь красота в твоих сильных руках.</p>
+        <p>Теперь я взрослее, и вижу ясней,<br>Как много ты вынесла ради моих дней.<br>И если захочешь — хоть каждый наш день<br>Я буду нести тебе сладость взамен.</p>
+
+        <p class="sec">Финальный припев</p>
+        <p>Мама, ты рядом — и мне не страшно,<br>Сколько бы вьюга ни била однажды.<br>Ты мне собою дала понять,<br>Как можно падать — и снова вставать.</p>
+        <p>Мама, спасибо за каждую боль,<br>Что ты закрыла своею рукой.<br>Мы были вместе сквозь темень и дым,<br>И потому этот свет сохранил нас двоих.</p>
+
+        <p class="sec">Аутро</p>
+        <p>Ты львица, ты нежность, ты дом и тепло,<br>С тобой даже трудное было светло.<br>И если сегодня я что-то могу —<br>То только потому, что стою на твоём берегу.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>слушай на здоровье <span class="heart">❤</span></footer>
+</div>
+
+<audio id="song" src="song.mp3" preload="metadata"></audio>
+
+<script>
+  const audio = document.getElementById('song');
+  const play   = document.getElementById('play');
+  const iPlay  = document.getElementById('icon-play');
+  const iPause = document.getElementById('icon-pause');
+  const fill   = document.getElementById('fill');
+  const prog   = document.getElementById('progress');
+  const curEl  = document.getElementById('cur');
+  const durEl  = document.getElementById('dur');
+
+  const fmt = s => {
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s/60), sec = Math.floor(s%60);
+    return m + ':' + String(sec).padStart(2,'0');
+  };
+
+  const setIcon = playing => {
+    iPlay.style.display  = playing ? 'none' : '';
+    iPause.style.display = playing ? '' : 'none';
+  };
+
+  play.addEventListener('click', () => {
+    if (audio.paused) audio.play(); else audio.pause();
+  });
+  audio.addEventListener('play',  () => setIcon(true));
+  audio.addEventListener('pause', () => setIcon(false));
+  audio.addEventListener('ended', () => { setIcon(false); fill.style.width='0%'; });
+  audio.addEventListener('loadedmetadata', () => durEl.textContent = fmt(audio.duration));
+  audio.addEventListener('timeupdate', () => {
+    curEl.textContent = fmt(audio.currentTime);
+    if (audio.duration) fill.style.width = (audio.currentTime/audio.duration*100) + '%';
+  });
+
+  prog.addEventListener('click', e => {
+    if (!audio.duration) return;
+    const r = prog.getBoundingClientRect();
+    audio.currentTime = (e.clientX - r.left) / r.width * audio.duration;
+  });
+
+  // lyrics toggle
+  const btn = document.getElementById('textbtn');
+  const lyr = document.getElementById('lyrics');
+  btn.addEventListener('click', () => {
+    const open = lyr.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+</script>
+</body>
+</html>
